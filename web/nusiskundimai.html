@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Nuolaidų kodų sistema</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Pagrindinis puslapis<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="renginiai.html">Renginiai</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pazymeti_renginiai.html">Pažymėti renginiai</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto mr-5">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admino paskyra
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" id="loginButton">Prisijungti</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" id="logoutButton">Atsijungti</a>
+                    <a class="dropdown-item" href="kurti_nuolaida.html">Nuolaidos kodai</a>
+                    <a class="dropdown-item" href="zmoniu_valdymas.html">Vartotojų ir organizatorių valdymas</a>
+                    <a class="dropdown-item" href="organizatoriu_formos.html">Organizatorių formos</a>
+                    <a class="dropdown-item" href="nusiskundimai.html">Nusiskundimai</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron text-center">
+    <h1>Nusiskundimai</h1>
+    <p>Čia galima peržiūrėti nusiskundimus ir juos atšaukti</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>NUSISKUNDIMAS 1</h3>
+            <p>Lorem ipsum dolor..</p>
+        </div>
+        <div class="col-sm-6">
+            <h3>NUSISKUNDIMAS 2</h3>
+            <p>Lorem ipsum dolor..</p>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white text-center mt-5 p-4">
+    <p>&copy; Renginių organizavimo informacinė sistema 2024</p>
+</footer>
+
+<!-- Prisijungimo modalo HTML struktūra -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Prisijungti</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="email">El. paštas</label>
+                        <input type="email" class="form-control" id="email" placeholder="Įveskite el. paštą">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Slaptažodis</label>
+                        <input type="password" class="form-control" id="password" placeholder="Įveskite slaptažodį">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Prisijungti</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Atsijungimo patvirtinimo modalo HTML struktūra -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Atsijungti</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ar tikrai norite atsijungti?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Atšaukti</button>
+                <button type="button" class="btn btn-primary">Atsijungti</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

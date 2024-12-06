@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Pagrindinis puslapis<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="renginiai.html">Renginiai</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pazymeti_renginiai.html">Pažymėti renginiai</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto mr-5">
+            <li class="nav-item">
+                <a class="nav-link" href="krepselis.html">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Paskyra
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" id="loginButton" data-toggle="modal" data-target="#loginModal">Prisijungti</a>
+                    <a class="dropdown-item" href="#" id="registerButton" data-toggle="modal" data-target="#registerModal">Registruotis</a>
+                    <a class="dropdown-item" href="mano_renginiai.html">Mano renginiai</a>
+                    <a class="dropdown-item" href="buve_renginiai.html">Praėję renginiai</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" id="logoutButton">Atsijungti</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron text-center">
+    <h1>Mano profilis</h1>
+    <p>Čia galima peržiūrėti savo profilį ir redaguoti informaciją bei ištrinti paskyrą</p>
+</div>
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Slapyvardis</strong></div>
+        <div class="col-sm-9" id="username">JohnDoe</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Vardas</strong></div>
+        <div class="col-sm-9" id="firstName">Jonas</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Pavardė</strong></div>
+        <div class="col-sm-9" id="lastName">Jonaitis</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Telefono numeris</strong></div>
+        <div class="col-sm-9" id="phone">+370 600 00000</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>El. paštas</strong></div>
+        <div class="col-sm-9" id="email">john.doe@example.com</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Aprašymas</strong></div>
+        <div class="col-sm-9" id="description">Studentas</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Gimimo data</strong></div>
+        <div class="col-sm-9" id="birthdate">1990-01-01</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-warning" id="editProfileButton" data-toggle="modal" data-target="#editProfileModal">Redaguoti profilį</button>
+            <button class="btn btn-danger ml-2" id="deleteAccountButton" data-toggle="modal" data-target="#deleteAccountModal">Ištrinti paskyrą</button>
+        </div>
+    </div>
+</div>
+<footer class="bg-dark text-white text-center mt-5 p-4">
+    <p>&copy; Renginių organizavimo informacinė sistema 2024</p>
+</footer>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Redaguoti profilį</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm">
+                    <div class="form-group">
+                        <label for="editUsername">Slapyvardis</label>
+                        <input type="text" class="form-control" id="editUsername" value="JohnDoe">
+                    </div>
+                    <div class="form-group">
+                        <label for="editFirstName">Vardas</label>
+                        <input type="text" class="form-control" id="editFirstName" value="Jonas">
+                    </div>
+                    <div class="form-group">
+                        <label for="editLastName">Pavardė</label>
+                        <input type="text" class="form-control" id="editLastName" value="Jonaitis">
+                    </div>
+                    <div class="form-group">
+                        <label for="editPhone">Telefono numeris</label>
+                        <input type="tel" class="form-control" id="editPhone" value="+370 600 00000">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">El. paštas</label>
+                        <input type="email" class="form-control" id="editEmail" value="john.doe@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDescription">Aprašymas</label>
+                        <input type="text" class="form-control" id="editDescription" value="Studentas">
+                    </div>
+                    <div class="form-group">
+                        <label for="editBirthdate">Gimimo data</label>
+                        <input type="date" class="form-control" id="editBirthdate" value="1990-01-01">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Išsaugoti</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Prisijungti</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">El. paštas</label>
+                        <input type="email" class="form-control" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Slaptažodis</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Prisijungti</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Registration Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Registruotis</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerUsername">Slapyvardis</label>
+                        <input type="text" class="form-control" id="registerUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">El. paštas</label>
+                        <input type="email" class="form-control" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Slaptažodis</label>
+                        <input type="password" class="form-control" id="registerPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Pakartoti slaptažodį</label>
+                        <input type="password" class="form-control" id="registerConfirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registruotis</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Account Confirmation Modal -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAccountModalLabel">Patvirtinimas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ar tikrai norite ištrinti savo paskyrą? Šis veiksmas yra negrįžtamas.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Atšaukti</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Ištrinti paskyrą</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Message -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Sėkmingai ištrinta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Jūsų paskyra sėkmingai ištrinta.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Uždaryti</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Atsijungimo patvirtinimo modalo HTML struktūra -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="logoutModalLabel">Atsijungimo patvirtinimas</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Ar tikrai norite atsijungti?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Atšaukti</button>
+            <button type="button" class="btn btn-primary" id="confirmLogout">Atsijungti</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+<script>
+    $(document).ready(function() {
+        $('#confirmDeleteButton').on('click', function() {
+            // Čia galite pridėti logiką, kad ištrintumėte paskyrą iš savo backend
+            $('#deleteAccountModal').modal('hide');
+            $('#successModal').modal('show');
+        });
+        
+        $('#logoutButton').click(function(){
+          $('#logoutModal').modal('show');
+        });
+
+        // Registracijos formos logika
+        $('#registerForm').on('submit', function(event) {
+            event.preventDefault();
+            // Čia galite pridėti logiką, kad registruotumėte naują vartotoją
+            alert('Sėkmingai užsiregistravote!');
+            $('#registerModal').modal('hide');
+        });
+
+        // Prisijungimo formos logika
+        $('#loginForm').on('submit', function(event) {
+            event.preventDefault();
+            // Čia galite pridėti logiką, kad prisijungtumėte
+            alert('Sėkmingai prisijungėte!');
+            $('#loginModal').modal('hide');
+        });
+    });
+</script>
+
+</body>
+</html>
