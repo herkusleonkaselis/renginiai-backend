@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Pagrindinis puslapis<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="renginiai.html">Renginiai</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pazymeti_renginiai.html">Pažymėti renginiai</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto mr-5">
+            <li class="nav-item">
+                <a class="nav-link" href="krepselis.html">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Paskyra
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" id="loginButton" data-toggle="modal" data-target="#loginModal">Prisijungti</a>
+                    <a class="dropdown-item" href="#" id="registerButton" data-toggle="modal" data-target="#registerModal">Registruotis</a>
+                    <a class="dropdown-item" href="mano_renginiai.html">Mano renginiai</a>
+                    <a class="dropdown-item" href="buve_renginiai.html">Praėję renginiai</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" id="logoutButton">Atsijungti</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron text-center">
+    <h1>Mano krepšelis</h1>
+    <p>Čia galima peržiūrėti pridėtus biletus, bendrą kainą</p>
+</div>
+
+<!-- Shopping Cart Section -->
+<div class="container mt-5">
+    <h2>Krepšelis</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Bilietas</th>
+                <th scope="col">Kaina</th>
+                <th scope="col">Veiksmai</th>
+            </tr>
+        </thead>
+        <tbody id="cartItems">
+            <!-- Bilietai bus pridėti dinamiškai naudojant JavaScript -->
+        </tbody>
+    </table>
+    <h4 class="text-right" id="totalPrice">Bendra suma: 0.00 €</h4>
+    <button class="btn btn-success btn-lg btn-block" id="purchaseButton" data-toggle="modal" data-target="#purchaseModal">Pirkti</button>
+</div>
+
+<footer class="bg-dark text-white text-center mt-5 p-4">
+    <p>&copy; Renginių organizavimo informacinė sistema 2024</p>
+</footer>
+
+<!-- Remove Item Modal -->
+<div class="modal fade" id="removeItemModal" tabindex="-1" role="dialog" aria-labelledby="removeItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeItemModalLabel">Patvirtinimas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ar tikrai norite pašalinti šį bilietą iš krepšelio?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Atšaukti</button>
+                <button type="button" class="btn btn-danger" id="confirmRemoveButton">Pašalinti</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Purchase Modal -->
+<div class="modal fade" id="purchaseModal" tabindex="-1" role="dialog" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="purchaseModalLabel">Pirkimo informacija</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label for="cardName">Vardas ant kortelės</label>
+                        <input type="text" class="form-control" id="cardName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber">Kortelės numeris</label>
+                        <input type="text" class="form-control" id="cardNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Galiojimo data (MM/YY)</label>
+                        <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Atšaukti</button>
+                <button type="button" class="btn btn-primary" id="confirmPurchaseButton">Patvirtinti pirkimą</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        let cart = [];
+        let total = 0;
+
+        // Sample tickets to add to the cart
+        const tickets = [
+            { name: 'Koncertas', price: 25.00 },
+            { name: 'Teatro spektaklis', price: 15.00 },
+            { name: 'Sporto renginys', price: 30.00 }
+        ];
+
+        // Function to update the cart display
+        function updateCart() {
+            const cartItems = $('#cartItems');
+            cartItems.empty();
+            total = 0;
+
+            cart.forEach((item, index) => {
+                cartItems.append(`
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.price.toFixed(2)} €</td>
+                        <td><button class="btn btn-danger btn-sm remove-item" data-index="${index}" data-toggle="modal" data-target="#removeItemModal">Pašalinti</button></td>
+                    </tr>
+                `);
+                total += item.price;
+            });
+
+            $('#totalPrice').text(`Bendra suma: ${total.toFixed(2)} €`);
+        }
+
+        // Add tickets to cart (for demonstration)
+        tickets.forEach(ticket => {
+            cart.push(ticket); // Simulating adding tickets
+        });
+        updateCart();
+
+        // Remove item logic
+        let removeIndex;
+        $(document).on('click', '.remove-item', function() {
+            removeIndex = $(this).data('index');
+        });
+
+        $('#confirmRemoveButton').on('click', function() {
+            cart.splice(removeIndex, 1); // Remove the item from the cart
+            $('#removeItemModal').modal('hide');
+            updateCart(); // Update the cart display
+        });
+
+        // Handle purchase button click
+        $('#confirmPurchaseButton').on('click', function() {
+            // Here you can add your payment processing logic
+            alert('Pirkimas patvirtintas!'); // Example alert for demonstration
+            $('#purchaseModal').modal('hide');
+        });
+    });
+</script>
+</body>
+</html>

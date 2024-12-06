@@ -1,0 +1,21 @@
+        /* Sticky Footer CSS */
+        html, body {
+            height: 100%;
+            margin: 0; /* Remove default margin */
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1; /* This makes the container expand to take the available space */
+        }
+
+        footer {
+            background-color: #343a40; /* Dark background for the footer */
+            color: white; /* White text color for contrast */
+            text-align: center; /* Center align text */
+            padding: 10px; /* Padding for the footer */
+        }
