@@ -10,8 +10,8 @@ import session from 'express-session';
 import { registerUser } from './registration/register.js';
 import { loginUser } from './login/login.js';
 import logoutRouter from './logout/logout.js';
-import profileController from './profile/profileController.js';
-
+import profileRouter from './profile/profileController.js';
+import eventsRouter from './ongoingEvents/ongoingEventController.js';
 
 // Sukuriame Express serverį
 const app = express();
@@ -30,7 +30,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, 'web')));
 app.use(logoutRouter);
 app.use(bodyParser.json());
-app.use(profileController);
+app.use(profileRouter);
+app.use(eventsRouter);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'web'));
