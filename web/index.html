@@ -250,6 +250,8 @@
                   if (data.success) {
                     sessionStorage.setItem('userName', data.username);
                     sessionStorage.setItem('role', data.role);
+                    sessionStorage.setItem('id', data.id);
+
                     alert('Sėkmingai prisijungėte!');
                     // Galite atlikti papildomas operacijas, pvz., peradresuoti vartotoją
                     $('#loginModal').modal('hide');
@@ -285,6 +287,7 @@
                   if (data.success) {
                     sessionStorage.removeItem('userName');
                     sessionStorage.removeItem('role');
+                    sessionStorage.removeItem('id');
                     alert('Sėkmingai atsijungėte!');
                     window.location.href = '/'; // Peradresuojame į pagrindinį puslapį
                   } else {
