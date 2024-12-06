@@ -201,14 +201,6 @@
         $('#registerButton').click(function(){
           $('#registerModal').modal('show');
         });
-        $('#logoutButton').click(function(){
-          $('#logoutModal').modal('show');
-        });
-        $('#confirmLogout').click(function(){
-          // Čia galite pridėti kodą atsijungimo logikai, pvz., nukreipimą į atsijungimo puslapį.
-          alert("Sėkmingai atsijungėte.");
-          $('#logoutModal').modal('hide'); // Uždaryti modalą po patvirtinimo
-        });
       });
     </script>
 
@@ -290,5 +282,36 @@
                 });
       });
     </script>
+
+    <script>
+      // Atsijungimo patvirtinimo modalas
+      const logoutButton = document.getElementById('logoutButton');
+      const logoutModal = $('#logoutModal');
+      const confirmLogoutButton = document.getElementById('confirmLogout');
+
+      // Atidaryti atsijungimo patvirtinimo modalą
+      logoutButton.addEventListener('click', function() {
+        logoutModal.modal('show');
+      });
+
+      // Patvirtinti atsijungimą
+      confirmLogoutButton.addEventListener('click', function() {
+        fetch('/logout', { method: 'POST' }) // Siunčiame užklausą serveriui
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    alert('Sėkmingai atsijungėte!');
+                    window.location.href = '/'; // Peradresuojame į pagrindinį puslapį
+                  } else {
+                    alert('Klaida atsijungiant');
+                  }
+                })
+                .catch(error => {
+                  console.error('Klaida atsijungiant:', error);
+                  alert('Įvyko klaida');
+                });
+        logoutModal.modal('hide'); // Uždaryti modalą
+      });
+      </script>
     </body>
 </html>
