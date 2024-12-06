@@ -141,21 +141,31 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="registerForm">
+              <div class="form-group">
+                <label for="registerUsername">Vartotojo vardas</label>
+                <input type="text" class="form-control" id="registerUsername" placeholder="Įveskite vartotojo vardą" required>
+              </div>
               <div class="form-group">
                 <label for="registerEmail">El. paštas</label>
-                <input type="email" class="form-control" id="registerEmail" placeholder="Įveskite el. paštą">
+                <input type="email" class="form-control" id="registerEmail" placeholder="Įveskite el. paštą" required>
               </div>
               <div class="form-group">
                 <label for="registerPassword">Slaptažodis</label>
-                <input type="password" class="form-control" id="registerPassword" placeholder="Įveskite slaptažodį">
+                <input type="password" class="form-control" id="registerPassword" placeholder="Įveskite slaptažodį" required>
               </div>
               <div class="form-group">
                 <label for="confirmPassword">Patvirtinti slaptažodį</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Pakartokite slaptažodį">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Pakartokite slaptažodį" required>
+              </div>
+              <div class="form-group">
+                <label for="contactName">Kontaktinis vardas</label>
+                <input type="text" class="form-control" id="contactName" placeholder="Įveskite kontaktinį vardą" required>
               </div>
               <button type="submit" class="btn btn-primary">Registruotis</button>
             </form>
+            <div id="error-message" style="color: red; display: none;">Slaptažodžiai nesutampa!</div>
+            <div id="success-message" style="color: green; display: none;">Sėkmingai užsiregistravote!</div>
           </div>
         </div>
       </div>
@@ -199,6 +209,50 @@
           alert("Sėkmingai atsijungėte.");
           $('#logoutModal').modal('hide'); // Uždaryti modalą po patvirtinimo
         });
+      });
+    </script>
+
+    <script>
+      // JavaScript validacija ir forma
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Neleisti formai automatiškai išsiųsti
+
+        // Gauti formos duomenis
+        const username = document.getElementById('registerUsername').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const contactName = document.getElementById('contactName').value;
+
+        // Patikrinti, ar slaptažodžiai sutampa
+        if (password !== confirmPassword) {
+          document.getElementById('error-message').style.display = 'block';
+          document.getElementById('success-message').style.display = 'none';
+          return;
+        }
+
+        document.getElementById('error-message').style.display = 'none';
+
+        // Siųsti formos duomenis į serverį naudojant fetch
+        fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, password, contact_name: contactName }),
+        })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    document.getElementById('success-message').style.display = 'block';
+                    document.getElementById('registerForm').reset(); // Išvalyti formą
+                  } else {
+                    document.getElementById('error-message').style.display = 'block';
+                  }
+                })
+                .catch(err => {
+                  console.error('Klaida:', err);
+                });
       });
     </script>
     </body>
