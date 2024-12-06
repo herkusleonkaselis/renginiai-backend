@@ -86,8 +86,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
-          <h3>Column 1</h3>
-          <p>Lorem ipsum dolor..</p>
+          <div id="greeting"></div>
         </div>
         <div class="col-sm-4">
           <h3>Column 2</h3>
@@ -201,14 +200,6 @@
         $('#registerButton').click(function(){
           $('#registerModal').modal('show');
         });
-        $('#logoutButton').click(function(){
-          $('#logoutModal').modal('show');
-        });
-        $('#confirmLogout').click(function(){
-          // Čia galite pridėti kodą atsijungimo logikai, pvz., nukreipimą į atsijungimo puslapį.
-          alert("Sėkmingai atsijungėte.");
-          $('#logoutModal').modal('hide'); // Uždaryti modalą po patvirtinimo
-        });
       });
     </script>
 
@@ -278,8 +269,13 @@
                 .then(response => response.json())
                 .then(data => {
                   if (data.success) {
+                    sessionStorage.setItem('userName', data.username);
+                    sessionStorage.setItem('role', data.role);
                     alert('Sėkmingai prisijungėte!');
                     // Galite atlikti papildomas operacijas, pvz., peradresuoti vartotoją
+                    $('#loginModal').modal('hide');
+                    window.location.reload();
+
                   } else {
                     alert('Prisijungimo klaida: ' + data.message);
                   }
@@ -289,6 +285,58 @@
                   alert('Įvyko klaida, pabandykite vėliau.');
                 });
       });
+    </script>
+
+    <script>
+      // Atsijungimo patvirtinimo modalas
+      const logoutButton = document.getElementById('logoutButton');
+      const logoutModal = $('#logoutModal');
+      const confirmLogoutButton = document.getElementById('confirmLogout');
+
+      // Atidaryti atsijungimo patvirtinimo modalą
+      logoutButton.addEventListener('click', function() {
+        logoutModal.modal('show');
+      });
+
+      // Patvirtinti atsijungimą
+      confirmLogoutButton.addEventListener('click', function() {
+        fetch('/logout', { method: 'POST' }) // Siunčiame užklausą serveriui
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    sessionStorage.removeItem('userName');
+                    sessionStorage.removeItem('role');
+                    alert('Sėkmingai atsijungėte!');
+                    window.location.href = '/'; // Peradresuojame į pagrindinį puslapį
+                  } else {
+                    alert('Klaida atsijungiant');
+                  }
+                })
+                .catch(error => {
+                  console.error('Klaida atsijungiant:', error);
+                  alert('Įvyko klaida');
+                });
+        logoutModal.modal('hide'); // Uždaryti modalą
+      });
+      </script>
+
+    <script>
+      // Patikrinti, ar vartotojas prisijungęs ir parodyti sveikinimą
+      window.onload = function() {
+        // Gauti prisijungusio vartotojo vardą iš sesijos
+        const userName = sessionStorage.getItem("userName");
+        const role = sessionStorage.getItem("role");
+
+        // Jeigu vartotojas prisijungęs, parodyti sveikinimą
+        if (userName) {
+          const greeting = document.getElementById("greeting");
+          greeting.innerHTML = `Labas, ${userName}, ROLE ${role}`;// Išveda: Labas, (vartotojo vardas)
+        } else {
+          // Jei vartotojas nėra prisijungęs, gali būti rodomas kitas tekstas
+          const greeting = document.getElementById("greeting");
+          greeting.innerHTML = `Sveiki atvykę į sistemą! Prisijunkite arba užsiregistruokite.`;
+        }
+      }
     </script>
     </body>
 </html>

@@ -47,6 +47,10 @@ export function registerUser(req, res) {
                     return res.status(500).json({ success: false, message: 'Klaida' });
                 }
 
+                req.session.user = {
+                    username: username,  // Įrašykite vardą į sesiją
+                };
+
                 res.json({ success: true, message: 'Sėkmingai užsiregistravote!' });
             });
         });

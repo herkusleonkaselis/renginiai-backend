@@ -2,28 +2,41 @@
 import express from 'express';
 import path from 'path';
 import mysql from 'mysql2';
-import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import session from 'express-session';
+
 import { registerUser } from './registration/register.js';
 import { loginUser } from './login/login.js';
+import logoutRouter from './logout/logout.js';
+
 
 // Sukuriame Express serverį
 const app = express();
 const port = 3000;  // Serverio prievadas
 
+app.use(session({
+    secret: 'secret-key', // Sesijos slaptažodis
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
 // Konfigūruojame statinių failų (HTML, CSS, JS) aptarnavimą iš /web katalogo
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.join(__dirname, 'web')));
-
+app.use(logoutRouter);
 app.use(bodyParser.json());
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'web'));
 
 // Pagrindinis maršrutas (GET užklausa į /)
 app.get('/', (req, res) => {
     // Pateikiame index.html, kuris yra /web kataloge
-    res.sendFile(path.join(__dirname, 'web', 'index.html'));
+    res.render('index');
 });
 
 app.post('/register', registerUser);
