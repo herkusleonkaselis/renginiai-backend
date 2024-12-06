@@ -11,47 +11,62 @@ const connection = mysql.createConnection({
 
 // Registracijos užklausa (POST)
 export function registerUser(req, res) {
-    const { username, email, password, contact_name } = req.body;
+    const { username, email, password, contact_name, dob, bio, address, phone_number } = req.body;
 
-    // Patikriname, ar vartotojas su tokiu el. paštu jau egzistuoja
+    // Check if a user with the same email already exists
     connection.query('SELECT * FROM user WHERE email = ?', [email], (err, results) => {
         if (err) {
-            console.error('Klaida tikrinant vartotoją:', err);
-            return res.status(500).json({ success: false, message: 'Klaida' });
+            console.error('Error checking user:', err);
+            return res.status(500).json({ success: false, message: 'Error' });
         }
 
         if (results.length > 0) {
-            return res.status(400).json({ success: false, message: 'Vartotojas su tokiu el. paštu jau egzistuoja' });
+            return res.status(400).json({ success: false, message: 'User with this email already exists' });
         }
 
-        // Slaptažodžio šifravimas
+        // Hash the password
         bcrypt.hash(password, 10, (err, hashedPassword) => {
             if (err) {
-                console.error('Klaida šifruojant slaptažodį:', err);
-                return res.status(500).json({ success: false, message: 'Klaida' });
+                console.error('Error hashing password:', err);
+                return res.status(500).json({ success: false, message: 'Error' });
             }
 
-            // Sukuriame dabartinę datą
-            const createDate = new Date().toISOString().slice(0, 19).replace('T', ' '); // Pvz., "2024-12-06 14:30:00"
-            const status = 'active';  // Numatytoji reikšmė
-            const accountType = 1;//'Attendee';  // Numatytas paskyros tipas
+            // Create current date
+            const createDate = new Date().toISOString().slice(0, 19).replace('T', ' ');  // Format: "2024-12-06 14:30:00"
+            const status = 'active';  // Default status
+            const accountType = 1;  // Default account type (Attendee)
 
-            // Įrašome naują vartotoją į duomenų bazę
-            const query = `
+            // Insert the new user into the user table
+            const userQuery = `
                 INSERT INTO user (username, password_hash, email, contact_name, create_date, status, fk_Account_Type)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             `;
-            connection.query(query, [username, hashedPassword, email, contact_name, createDate, status, accountType], (err, results) => {
+            connection.query(userQuery, [username, hashedPassword, email, contact_name, createDate, status, accountType], (err, userResults) => {
                 if (err) {
-                    console.error('Klaida įrašant vartotoją:', err);
-                    return res.status(500).json({ success: false, message: 'Klaida' });
+                    console.error('Error inserting user:', err);
+                    return res.status(500).json({ success: false, message: 'Error' });
                 }
 
-                req.session.user = {
-                    username: username,  // Įrašykite vardą į sesiją
-                };
+                const userId = userResults.insertId; // Get the ID of the newly created user
 
-                res.json({ success: true, message: 'Sėkmingai užsiregistravote!' });
+                // Insert attendee information
+                const attendeeQuery = `
+                    INSERT INTO attendee_information (dob, bio, address, phone_number, fk_Locationid_Location, fk_Userid_User, fk_gender)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                `;
+                connection.query(attendeeQuery, [dob, bio, address, phone_number, 1, userId, 3], (err, attendeeResults) => {
+                    if (err) {
+                        console.error('Error inserting attendee information:', err);
+                        return res.status(500).json({ success: false, message: 'Error' });
+                    }
+
+                    // Store user session
+                    req.session.user = {
+                        username: username,
+                    };
+
+                    res.json({ success: true, message: 'Successfully registered!' });
+                });
             });
         });
     });

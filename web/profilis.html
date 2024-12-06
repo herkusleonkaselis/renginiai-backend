@@ -13,6 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Kairės pusės navigacija -->
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">Pagrindinis puslapis<span class="sr-only">(current)</span></a>
@@ -25,21 +26,22 @@
             </li>
         </ul>
 
+        <!-- Dešinės pusės navigacija su ml-auto -->
         <ul class="navbar-nav ml-auto mr-5">
             <li class="nav-item">
                 <a class="nav-link" href="krepselis.html">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" id="accountDropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Paskyra
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#" id="loginButton" data-toggle="modal" data-target="#loginModal">Prisijungti</a>
-                    <a class="dropdown-item" href="#" id="registerButton" data-toggle="modal" data-target="#registerModal">Registruotis</a>
-                    <a class="dropdown-item" href="mano_renginiai.html">Mano renginiai</a>
-                    <a class="dropdown-item" href="buve_renginiai.html">Praėję renginiai</a>
+                    <a class="dropdown-item" href="profilis.html" id="profileLink">Profilis</a>
+                    <a class="dropdown-item" href="mano_renginiai.html" id="myEventsLink">Mano renginiai</a>
+                    <a class="dropdown-item" href="buve_renginiai.html" id="pastEventsLink">Praėję renginiai</a>
+                    <a class="dropdown-item" href="organizatoriaus_forma.html" id="becomeOrganizerLink">Pateikti prašymą tapti organizatoriumi</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" id="logoutButton">Atsijungti</a>
                 </div>
@@ -56,32 +58,45 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-sm-3"><strong>Slapyvardis</strong></div>
-        <div class="col-sm-9" id="username">JohnDoe</div>
+        <div class="col-sm-9" id="username"></div>
     </div>
     <div class="row mb-3">
         <div class="col-sm-3"><strong>Vardas</strong></div>
-        <div class="col-sm-9" id="firstName">Jonas</div>
+        <div class="col-sm-9" id="firstName"></div>
     </div>
     <div class="row mb-3">
         <div class="col-sm-3"><strong>Pavardė</strong></div>
-        <div class="col-sm-9" id="lastName">Jonaitis</div>
+        <div class="col-sm-9" id="lastName"></div>
     </div>
     <div class="row mb-3">
         <div class="col-sm-3"><strong>Telefono numeris</strong></div>
-        <div class="col-sm-9" id="phone">+370 600 00000</div>
+        <div class="col-sm-9" id="phone"></div>
     </div>
     <div class="row mb-3">
         <div class="col-sm-3"><strong>El. paštas</strong></div>
-        <div class="col-sm-9" id="email">john.doe@example.com</div>
+        <div class="col-sm-9" id="email"></div>
     </div>
     <div class="row mb-3">
         <div class="col-sm-3"><strong>Aprašymas</strong></div>
-        <div class="col-sm-9" id="description">Studentas</div>
+        <div class="col-sm-9" id="description"></div>
     </div>
     <div class="row mb-3">
         <div class="col-sm-3"><strong>Gimimo data</strong></div>
-        <div class="col-sm-9" id="birthdate">1990-01-01</div>
+        <div class="col-sm-9" id="birthdate"></div>
     </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Paskyros sukūrimo data</strong></div>
+        <div class="col-sm-9" id="creationDate"></div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Lytis</strong></div>
+        <div class="col-sm-9" id="gender"></div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3"><strong>Adresas</strong></div>
+        <div class="col-sm-9" id="address"></div>
+    </div>
+
     <div class="row">
         <div class="col-sm-12 text-center">
             <button class="btn btn-warning" id="editProfileButton" data-toggle="modal" data-target="#editProfileModal">Redaguoti profilį</button>
@@ -107,31 +122,43 @@
                 <form id="editProfileForm">
                     <div class="form-group">
                         <label for="editUsername">Slapyvardis</label>
-                        <input type="text" class="form-control" id="editUsername" value="JohnDoe">
+                        <input type="text" class="form-control" id="editUsername" value="">
                     </div>
                     <div class="form-group">
                         <label for="editFirstName">Vardas</label>
-                        <input type="text" class="form-control" id="editFirstName" value="Jonas">
+                        <input type="text" class="form-control" id="editFirstName" value="">
                     </div>
                     <div class="form-group">
                         <label for="editLastName">Pavardė</label>
-                        <input type="text" class="form-control" id="editLastName" value="Jonaitis">
+                        <input type="text" class="form-control" id="editLastName" value="">
                     </div>
                     <div class="form-group">
                         <label for="editPhone">Telefono numeris</label>
-                        <input type="tel" class="form-control" id="editPhone" value="+370 600 00000">
+                        <input type="tel" class="form-control" id="editPhone" value="">
                     </div>
                     <div class="form-group">
                         <label for="editEmail">El. paštas</label>
-                        <input type="email" class="form-control" id="editEmail" value="john.doe@example.com">
+                        <input type="email" class="form-control" id="editEmail" value="">
                     </div>
                     <div class="form-group">
                         <label for="editDescription">Aprašymas</label>
-                        <input type="text" class="form-control" id="editDescription" value="Studentas">
+                        <input type="text" class="form-control" id="editDescription" value="">
                     </div>
                     <div class="form-group">
                         <label for="editBirthdate">Gimimo data</label>
-                        <input type="date" class="form-control" id="editBirthdate" value="1990-01-01">
+                        <input type="date" class="form-control" id="editBirthdate" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="editGender">Lytis</label>
+                        <select class="form-control" id="editGender">
+                            <option value="male">Vyras</option>
+                            <option value="female">Moteris</option>
+                            <option value="unspecified">Nenurodytas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAddress">Adresas</label>
+                        <input type="text" class="form-control" id="editAddress" value="">
                     </div>
                     <button type="submit" class="btn btn-primary">Išsaugoti</button>
                 </form>
@@ -263,15 +290,129 @@
         </div>
       </div>
     </div>
-    
+
 <script>
     $(document).ready(function() {
-        $('#confirmDeleteButton').on('click', function() {
-            // Čia galite pridėti logiką, kad ištrintumėte paskyrą iš savo backend
-            $('#deleteAccountModal').modal('hide');
-            $('#successModal').modal('show');
+
+        const userId = sessionStorage.getItem("id");
+        //console.log(userId);
+
+        fetch(`/profile/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data) {
+                    $('#username').text(data.username || '');
+                    $('#firstName').text(data.contact_name?.split(' ')[0] || '');
+                    $('#lastName').text(data.contact_name?.split(' ')[1] || '');
+                    $('#phone').text(data.attendee_phone || '');
+                    $('#email').text(data.email || '');
+                    $('#description').text(data.bio || '');
+                    $('#birthdate').text(data.dob || '');
+                    $('#gender').text(data.gender_name || '');
+                    $('#address').text(data.address || '');
+                    $('#creationDate').text(data.create_date || '');
+
+                    const formattedDob = formatDate(data.dob);
+
+                    // Užpildykite redagavimo laukus
+                    $('#editUsername').val(data.username || '');
+                    $('#editFirstName').val(data.contact_name?.split(' ')[0] || '');
+                    $('#editLastName').val(data.contact_name?.split(' ')[1] || '');
+                    $('#editPhone').val(data.attendee_phone || '');
+                    $('#editEmail').val(data.email || '');
+                    $('#editDescription').val(data.bio || '');
+                    $('#editBirthdate').val(formattedDob || '');
+                    $('#editGender').val(data.gender_name || '');
+                    $('#editAddress').val(data.address || '');
+                }
+            })
+            .catch(err => {
+                console.error('Error fetching profile:', err);
+            });
+
+        function formatDate(date) {
+            const d = new Date(date);
+            const month = (d.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if month is less than 10
+            const day = d.getDate().toString().padStart(2, '0'); // Add leading zero if day is less than 10
+            const year = d.getFullYear();
+            return `${year}-${month}-${day}`; // Returns the date in YYYY-MM-DD format
+        }
+
+        $('#editProfileForm').on('submit', function(event) {
+            event.preventDefault();
+
+            const userId = sessionStorage.getItem("id"); // Gauti vartotojo ID
+            const data = {
+                username: $('#editUsername').val(),
+                contact_name: `${$('#editFirstName').val()} ${$('#editLastName').val()}`,
+                phone_number: $('#editPhone').val(),
+                email: $('#editEmail').val(),
+                bio: $('#editDescription').val(),
+                dob: $('#editBirthdate').val(),
+                address: $('#editAddress').val(),
+                gender_name : $('#editGender').val(),
+                // Jei reikia, pridėkite vietos informaciją
+                latitude: 0, // Jei naudojama, pakeiskite tinkamu kintamuoju
+                longitude: 0 // Jei naudojama, pakeiskite tinkamu kintamuoju
+            };
+
+            fetch(`/profile/${userId}`, {
+                method: 'PUT',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Profilis sėkmingai atnaujintas!');
+                        location.reload(); // Perkrauti puslapį
+                    } else {
+                        throw new Error('Nepavyko atnaujinti profilio');
+                    }
+                })
+                .catch(err => {
+                    console.error('Error updating profile:', err);
+                    alert('Įvyko klaida atnaujinant profilį');
+                });
         });
-        
+
+        $('#confirmDeleteButton').on('click', function() {
+            // Get the user ID from the relevant input or data attribute
+            const userId = sessionStorage.getItem("id");
+
+            // Make a DELETE request to your backend using Fetch
+            fetch(`/profile/${userId}`, {
+                method: 'DELETE', // HTTP method
+                headers: {
+                    'Content-Type': 'application/json', // Set content type
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // If the response is successful, show the success modal
+                        $('#deleteAccountModal').modal('hide');
+                        $('#successModal').modal('show');
+                        sessionStorage.removeItem('userName');
+                        sessionStorage.removeItem('role');
+                        sessionStorage.removeItem('id');
+                        alert('Sėkmingai atsijungėte!');
+                        window.location.href = '/'; // Perkrauti puslapį, kad atnaujintų rodymą
+                    } else {
+                        // Handle errors if the deletion fails
+                        alert('Failed to delete account');
+                    }
+                })
+                .catch(error => {
+                    // Handle network or other errors
+                    console.error('Error:', error);
+                    alert('An error occurred');
+                });
+        });
+
+
         $('#logoutButton').click(function(){
           $('#logoutModal').modal('show');
         });
@@ -291,6 +432,48 @@
             alert('Sėkmingai prisijungėte!');
             $('#loginModal').modal('hide');
         });
+    });
+</script>
+
+<script>
+    // Atsijungimo patvirtinimo modalas
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = $('#logoutModal');
+    const confirmLogoutButton = document.getElementById('confirmLogout');
+
+    // Atidaryti atsijungimo patvirtinimo modalą
+    logoutButton.addEventListener('click', function() {
+        logoutModal.modal('show');
+    });
+
+    // Patvirtinti atsijungimą
+    confirmLogoutButton.addEventListener('click', function() {
+        fetch('/logout', { method: 'POST' }) // Siunčiame užklausą serveriui
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    sessionStorage.removeItem('userName');
+                    sessionStorage.removeItem('role');
+                    sessionStorage.removeItem('id');
+                    alert('Sėkmingai atsijungėte!');
+                    window.location.href = '/'; // Peradresuojame į pagrindinį puslapį
+                } else {
+                    alert('Klaida atsijungiant');
+                }
+            })
+            .catch(error => {
+                console.error('Klaida atsijungiant:', error);
+                alert('Įvyko klaida');
+            });
+        logoutModal.modal('hide'); // Uždaryti modalą
+    });
+
+    document.getElementById('logoutButton').addEventListener('click', function() {
+        sessionStorage.removeItem('userName');
+        sessionStorage.removeItem('role');
+        sessionStorage.removeItem('id');
+        alert('Sėkmingai atsijungėte!');
+        window.location.href = '/'; // Perkrauti puslapį, kad atnaujintų rodymą
     });
 </script>
 
