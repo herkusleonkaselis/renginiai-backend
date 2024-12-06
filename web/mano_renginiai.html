@@ -53,86 +53,17 @@
 
     <div class="jumbotron text-center">
       <h1>Čia yra išvardinti visi mano būsimi renginiai</h1>
-      <p>Paspauskite ant renginio</p>
     </div>
 
     <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
-          <h3>Renginys 1</h3>
-          <p>Lorem ipsum dolor..</p>
+        <div class="row" id="events-container">
+            <!-- Events will be dynamically loaded here -->
         </div>
-        <div class="col-sm-4">
-          <h3>Renginys 2</h3>
-          <p>Lorem ipsum dolor..</p>
-        </div>
-        <div class="col-sm-4">
-          <h3>Renginys 3</h3>
-          <p>Lorem ipsum dolor..</p>
-        </div>
-      </div>
     </div>
+
     <footer class="bg-dark text-white text-center mt-5 p-4">
         <p>&copy; Renginių organizavimo informacinė sistema 2024</p>
     </footer>
-
-    <!-- Prisijungimo modalo HTML struktūra -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLabel">Prisijungti</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="email">El. paštas</label>
-                <input type="email" class="form-control" id="email" placeholder="Įveskite el. paštą">
-              </div>
-              <div class="form-group">
-                <label for="password">Slaptažodis</label>
-                <input type="password" class="form-control" id="password" placeholder="Įveskite slaptažodį">
-              </div>
-              <button type="submit" class="btn btn-primary">Prisijungti</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Registracijos modalo HTML struktūra -->
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="registerModalLabel">Registruotis</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="registerEmail">El. paštas</label>
-                <input type="email" class="form-control" id="registerEmail" placeholder="Įveskite el. paštą">
-              </div>
-              <div class="form-group">
-                <label for="registerPassword">Slaptažodis</label>
-                <input type="password" class="form-control" id="registerPassword" placeholder="Įveskite slaptažodį">
-              </div>
-              <div class="form-group">
-                <label for="confirmPassword">Patvirtinti slaptažodį</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Pakartokite slaptažodį">
-              </div>
-              <button type="submit" class="btn btn-primary">Registruotis</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Atsijungimo patvirtinimo modalo HTML struktūra -->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
@@ -158,12 +89,6 @@
     <!-- jQuery kodas modalų valdymui -->
     <script>
       $(document).ready(function(){
-        $('#loginButton').click(function(){
-          $('#loginModal').modal('show');
-        });
-        $('#registerButton').click(function(){
-          $('#registerModal').modal('show');
-        });
         $('#logoutButton').click(function(){
           $('#logoutModal').modal('show');
         });
@@ -173,6 +98,39 @@
           $('#logoutModal').modal('hide'); // Uždaryti modalą po patvirtinimo
         });
       });
+    </script>
+
+    <script>
+        // Use Fetch API to retrieve events data from the server
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/events') // API endpoint to fetch events
+                .then(response => response.json())
+                .then(events => {
+                    const eventsContainer = document.getElementById('events-container');
+                    events.forEach(event => {
+                        // Create the HTML structure for each event
+                        const eventCard = document.createElement('div');
+                        eventCard.classList.add('col-sm-4');
+                        eventCard.innerHTML = `
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">${event.name}</h5>
+                                <p class="card-text">${event.desc_short}</p>
+                                <p><strong>Data:</strong> ${event.publish_date}</p>
+                                <p><strong>Laikas:</strong> ${event.start_time} - ${event.end_time}</p>
+                                <p><strong>Tipas:</strong> ${event.event_type}</p>
+                                <p><strong>Vieta:</strong> ${event.latitude}, ${event.longitude}</p>
+                            </div>
+                        </div>
+                    `;
+                        eventsContainer.appendChild(eventCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching events:', error);
+                    alert('Įvyko klaida kraunant renginius.');
+                });
+        });
     </script>
     </body>
 </html>
