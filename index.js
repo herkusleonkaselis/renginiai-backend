@@ -1,20 +1,34 @@
 // Importuojame reikalingus modulius
-const express = require('express');
-const path = require('path');
-const mysql = require('mysql2');
+import express from 'express';
+import path from 'path';
+import mysql from 'mysql2';
+import bcrypt from 'bcrypt';
+import bodyParser from 'body-parser';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { registerUser } from './registration/register.js';
+import { loginUser } from './login/login.js';
 
 // Sukuriame Express serverį
 const app = express();
 const port = 3000;  // Serverio prievadas
 
 // Konfigūruojame statinių failų (HTML, CSS, JS) aptarnavimą iš /web katalogo
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 app.use(express.static(path.join(__dirname, 'web')));
+
+app.use(bodyParser.json());
 
 // Pagrindinis maršrutas (GET užklausa į /)
 app.get('/', (req, res) => {
     // Pateikiame index.html, kuris yra /web kataloge
     res.sendFile(path.join(__dirname, 'web', 'index.html'));
 });
+
+app.post('/register', registerUser);
+app.post('/login', loginUser);
+
 
 // Sukuriame MySQL ryšį (čia reikia įrašyti savo duomenų bazės duomenis)
 const connection = mysql.createConnection({
