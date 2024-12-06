@@ -20,57 +20,36 @@
           <li class="nav-item">
             <a class="nav-link" href="renginiai.html">Renginiai</a>
           </li>
-            <li class="nav-item">
-                <a class="nav-link" href="pazymeti_renginiai.html">Pažymėti renginiai</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pazymeti_renginiai.html">Pažymėti renginiai</a>
+          </li>
         </ul>
 
         <!-- Dešinės pusės navigacija su ml-auto -->
         <ul class="navbar-nav ml-auto mr-5">
-            <li class="nav-item">
-              <a class="nav-link" href="krepselis.html">
-                <i class="fas fa-shopping-cart"></i>
-              </a>
-            </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item">
+            <a class="nav-link" href="krepselis.html">
+              <i class="fas fa-shopping-cart"></i>
+            </a>
+          </li>
+          <li class="nav-item dropdown" id="accountDropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Paskyra
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="profilis.html">Profilis</a>
+              <a class="dropdown-item" href="profilis.html" id="profileLink">Profilis</a>
               <a class="dropdown-item" href="#" id="loginButton">Prisijungti</a>
               <a class="dropdown-item" href="#" id="registerButton">Registruotis</a>
-              <a class="dropdown-item" href="mano_renginiai.html">Mano renginiai</a>
-              <a class="dropdown-item" href="buve_renginiai.html">Praėję renginiai</a>
-              <a class="dropdown-item" href="organizatoriaus_forma.html">Pateikti prašymą tapti organizatoriumi</a>
+              <a class="dropdown-item" href="mano_renginiai.html" id="myEventsLink">Mano renginiai</a>
+              <a class="dropdown-item" href="buve_renginiai.html" id="pastEventsLink">Praėję renginiai</a>
+              <a class="dropdown-item" href="organizatoriaus_forma.html" id="becomeOrganizerLink">Pateikti prašymą tapti organizatoriumi</a>
+              <a class="dropdown-item" href="managint_renginius.html" id="manageEventsLink">Renginiai</a>
+              <a class="dropdown-item" href="kurti_nuolaida.html" id="discountCodesLink">Nuolaidos kodai</a>
+              <a class="dropdown-item" href="zmoniu_valdymas.html" id="userManagementLink">Vartotojų ir organizatorių valdymas</a>
+              <a class="dropdown-item" href="organizatoriu_formos.html" id="organizerFormsLink">Organizatorių formos</a>
+              <a class="dropdown-item" href="nusiskundimai.html" id="complaintsLink">Nusiskundimai</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#" id="logoutButton">Atsijungti</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Organizatoriaus paskyra
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#" id="loginButton">Prisijungti</a>
-              <a class="dropdown-item" href="#" id="registerButton">Registruotis</a>
-              <a class="dropdown-item" href="managint_renginius.html">Renginiai</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" id="logoutButton">Atsijungti</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Admino paskyra
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#" id="loginButton">Prisijungti</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" id="logoutButton">Atsijungti</a>
-              <a class="dropdown-item" href="kurti_nuolaida.html" >Nuolaidos kodai</a>
-              <a class="dropdown-item" href="zmoniu_valdymas.html" >Vartotojų ir organizatorių valdymas</a>
-              <a class="dropdown-item" href="organizatoriu_formos.html">Organizatorių formos</a>
-              <a class="dropdown-item" href="nusiskundimai.html">Nusiskundimai</a>
             </div>
           </li>
         </ul>
@@ -86,8 +65,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
-          <h3>Column 1</h3>
-          <p>Lorem ipsum dolor..</p>
+          <div id="greeting"></div>
         </div>
         <div class="col-sm-4">
           <h3>Column 2</h3>
@@ -114,14 +92,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="loginForm">
               <div class="form-group">
                 <label for="email">El. paštas</label>
-                <input type="email" class="form-control" id="email" placeholder="Įveskite el. paštą">
+                <input type="email" class="form-control" id="email" placeholder="Įveskite el. paštą" required>
               </div>
               <div class="form-group">
                 <label for="password">Slaptažodis</label>
-                <input type="password" class="form-control" id="password" placeholder="Įveskite slaptažodį">
+                <input type="password" class="form-control" id="password" placeholder="Įveskite slaptažodį" required>
               </div>
               <button type="submit" class="btn btn-primary">Prisijungti</button>
             </form>
@@ -141,21 +119,31 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="registerForm">
+              <div class="form-group">
+                <label for="registerUsername">Vartotojo vardas</label>
+                <input type="text" class="form-control" id="registerUsername" placeholder="Įveskite vartotojo vardą" required>
+              </div>
               <div class="form-group">
                 <label for="registerEmail">El. paštas</label>
-                <input type="email" class="form-control" id="registerEmail" placeholder="Įveskite el. paštą">
+                <input type="email" class="form-control" id="registerEmail" placeholder="Įveskite el. paštą" required>
               </div>
               <div class="form-group">
                 <label for="registerPassword">Slaptažodis</label>
-                <input type="password" class="form-control" id="registerPassword" placeholder="Įveskite slaptažodį">
+                <input type="password" class="form-control" id="registerPassword" placeholder="Įveskite slaptažodį" required>
               </div>
               <div class="form-group">
                 <label for="confirmPassword">Patvirtinti slaptažodį</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Pakartokite slaptažodį">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Pakartokite slaptažodį" required>
+              </div>
+              <div class="form-group">
+                <label for="contactName">Kontaktinis vardas</label>
+                <input type="text" class="form-control" id="contactName" placeholder="Įveskite kontaktinį vardą" required>
               </div>
               <button type="submit" class="btn btn-primary">Registruotis</button>
             </form>
+            <div id="error-message" style="color: red; display: none;">Slaptažodžiai nesutampa!</div>
+            <div id="success-message" style="color: green; display: none;">Sėkmingai užsiregistravote!</div>
           </div>
         </div>
       </div>
@@ -191,15 +179,211 @@
         $('#registerButton').click(function(){
           $('#registerModal').modal('show');
         });
-        $('#logoutButton').click(function(){
-          $('#logoutModal').modal('show');
-        });
-        $('#confirmLogout').click(function(){
-          // Čia galite pridėti kodą atsijungimo logikai, pvz., nukreipimą į atsijungimo puslapį.
-          alert("Sėkmingai atsijungėte.");
-          $('#logoutModal').modal('hide'); // Uždaryti modalą po patvirtinimo
-        });
       });
+    </script>
+
+    <script>
+      // JavaScript validacija ir forma
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Neleisti formai automatiškai išsiųsti
+
+        // Gauti formos duomenis
+        const username = document.getElementById('registerUsername').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const contactName = document.getElementById('contactName').value;
+
+        // Patikrinti, ar slaptažodžiai sutampa
+        if (password !== confirmPassword) {
+          document.getElementById('error-message').style.display = 'block';
+          document.getElementById('success-message').style.display = 'none';
+          return;
+        }
+
+        document.getElementById('error-message').style.display = 'none';
+
+        // Siųsti formos duomenis į serverį naudojant fetch
+        fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, password, contact_name: contactName }),
+        })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    document.getElementById('success-message').style.display = 'block';
+                    document.getElementById('registerForm').reset(); // Išvalyti formą
+                  } else {
+                    document.getElementById('error-message').style.display = 'block';
+                  }
+                })
+                .catch(err => {
+                  console.error('Klaida:', err);
+                });
+      });
+    </script>
+
+    <!-- JavaScript, kad atliktų prisijungimo užklausą -->
+    <script>
+      const loginForm = document.getElementById('loginForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Užkirsti kelią formos įprastam pateikimui
+
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    sessionStorage.setItem('userName', data.username);
+                    sessionStorage.setItem('role', data.role);
+                    alert('Sėkmingai prisijungėte!');
+                    // Galite atlikti papildomas operacijas, pvz., peradresuoti vartotoją
+                    $('#loginModal').modal('hide');
+                    window.location.reload();
+
+                  } else {
+                    alert('Prisijungimo klaida: ' + data.message);
+                  }
+                })
+                .catch(error => {
+                  console.error('Klaida prisijungiant:', error);
+                  alert('Įvyko klaida, pabandykite vėliau.');
+                });
+      });
+    </script>
+
+    <script>
+      // Atsijungimo patvirtinimo modalas
+      const logoutButton = document.getElementById('logoutButton');
+      const logoutModal = $('#logoutModal');
+      const confirmLogoutButton = document.getElementById('confirmLogout');
+
+      // Atidaryti atsijungimo patvirtinimo modalą
+      logoutButton.addEventListener('click', function() {
+        logoutModal.modal('show');
+      });
+
+      // Patvirtinti atsijungimą
+      confirmLogoutButton.addEventListener('click', function() {
+        fetch('/logout', { method: 'POST' }) // Siunčiame užklausą serveriui
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    sessionStorage.removeItem('userName');
+                    sessionStorage.removeItem('role');
+                    alert('Sėkmingai atsijungėte!');
+                    window.location.href = '/'; // Peradresuojame į pagrindinį puslapį
+                  } else {
+                    alert('Klaida atsijungiant');
+                  }
+                })
+                .catch(error => {
+                  console.error('Klaida atsijungiant:', error);
+                  alert('Įvyko klaida');
+                });
+        logoutModal.modal('hide'); // Uždaryti modalą
+      });
+      </script>
+
+    <script>
+      // Patikrinti, ar vartotojas prisijungęs ir parodyti sveikinimą
+      window.onload = function() {
+        // Gauti prisijungusio vartotojo vardą ir rolę iš sesijos
+        const userName = sessionStorage.getItem("userName");
+        const role = sessionStorage.getItem("role");
+
+        const greeting = document.getElementById("greeting");
+        // Jeigu vartotojas prisijungęs, parodyti sveikinimą
+        if (userName) {
+          greeting.innerHTML = `Labas, ${userName}, ROLE ${role}`; // Išveda: Labas, (vartotojo vardas)
+        } else {
+          // Jei vartotojas nėra prisijungęs, rodyti kitą tekstą
+          greeting.innerHTML = `Sveiki atvykę į sistemą! Prisijunkite arba užsiregistruokite.`;
+        }
+
+        // Jei vartotojas neprisijungęs, rodyti tik "Prisijungti" ir "Registruotis"
+        if (!userName) {
+          document.getElementById('loginButton').style.display = 'block';
+          document.getElementById('registerButton').style.display = 'block';
+
+          // Slėpti elementus, kurių neturėtų matyti neprisijungęs vartotojas
+          document.getElementById('profileLink').style.display = 'none';
+          document.getElementById('myEventsLink').style.display = 'none';
+          document.getElementById('pastEventsLink').style.display = 'none';
+          document.getElementById('becomeOrganizerLink').style.display = 'none';
+          document.getElementById('manageEventsLink').style.display = 'none';
+          document.getElementById('discountCodesLink').style.display = 'none';
+          document.getElementById('userManagementLink').style.display = 'none';
+          document.getElementById('organizerFormsLink').style.display = 'none';
+          document.getElementById('complaintsLink').style.display = 'none';
+          document.getElementById('logoutButton').style.display = 'none';
+        } else {
+          // Jeigu vartotojas prisijungęs, rodyti "Atsijungti"
+          document.getElementById('logoutButton').style.display = 'block';
+
+          // Rodyti elementus pagal rolę
+          if (role == 1) {
+            document.getElementById('loginButton').style.display = 'none';
+            document.getElementById('registerButton').style.display = 'none';
+            document.getElementById('profileLink').style.display = 'block';
+            document.getElementById('myEventsLink').style.display = 'block';
+            document.getElementById('pastEventsLink').style.display = 'block';
+            document.getElementById('becomeOrganizerLink').style.display = 'block';
+            document.getElementById('manageEventsLink').style.display = 'none';
+            document.getElementById('discountCodesLink').style.display = 'none';
+            document.getElementById('userManagementLink').style.display = 'none';
+            document.getElementById('organizerFormsLink').style.display = 'none';
+            document.getElementById('complaintsLink').style.display = 'none';
+          } else if (role == 2) {
+            document.getElementById('loginButton').style.display = 'none';
+            document.getElementById('registerButton').style.display = 'none';
+            document.getElementById('profileLink').style.display = 'none';
+            document.getElementById('myEventsLink').style.display = 'none';
+            document.getElementById('pastEventsLink').style.display = 'none';
+            document.getElementById('becomeOrganizerLink').style.display = 'none';
+            document.getElementById('manageEventsLink').style.display = 'block';
+            document.getElementById('discountCodesLink').style.display = 'none';
+            document.getElementById('userManagementLink').style.display = 'none';
+            document.getElementById('organizerFormsLink').style.display = 'none';
+            document.getElementById('complaintsLink').style.display = 'none';
+          } else if (role == 3 || role == 4) {
+            document.getElementById('loginButton').style.display = 'none';
+            document.getElementById('registerButton').style.display = 'none';
+            document.getElementById('profileLink').style.display = 'none';
+            document.getElementById('myEventsLink').style.display = 'none';
+            document.getElementById('pastEventsLink').style.display = 'none';
+            document.getElementById('becomeOrganizerLink').style.display = 'none';
+            document.getElementById('manageEventsLink').style.display = 'none';
+            document.getElementById('discountCodesLink').style.display = 'block';
+            document.getElementById('userManagementLink').style.display = 'block';
+            document.getElementById('organizerFormsLink').style.display = 'block';
+            document.getElementById('complaintsLink').style.display = 'block';
+          }
+        }
+
+        // Atsijungimo logika
+        document.getElementById('logoutButton').addEventListener('click', function() {
+          sessionStorage.removeItem('userName');
+          sessionStorage.removeItem('role');
+          alert('Sėkmingai atsijungėte!');
+          window.location.reload(); // Perkrauti puslapį, kad atnaujintų rodymą
+        });
+      };
+
     </script>
     </body>
 </html>

@@ -2,6 +2,7 @@
   "name": "renginiai-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,9 +18,8 @@
   "homepage": "https://github.com/herkusleonkaselis/renginiai-backend#readme",
   "description": "",
   "dependencies": {
-    "express": "^4.21.2",
-    "helmet": "^8.0.0",
-    "mysql": "^2.18.1"
-  },
-  "type": "module"
+    "bcrypt": "^5.1.1",
+    "ejs": "^3.1.10",
+    "express-session": "^1.18.1"
+  }
 }
