@@ -56,62 +56,8 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-4">
-            <h3>Renginys 1</h3>
-            <p>Lorem ipsum dolor..</p>
-            <form>
-                <label for="rating1">Įvertinimas:</label>
-                <div class="form-group">
-                    <select class="form-control" id="rating1">
-                        <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-                        <option value="4">⭐️⭐️⭐️⭐️</option>
-                        <option value="3">⭐️⭐️⭐️</option>
-                        <option value="2">⭐️⭐️</option>
-                        <option value="1">⭐️</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-secondary" id="feedbackButton1">Atsiliepimas</button>
-                <button type="submit" class="btn btn-primary">Siųsti įvertinimą</button>
-            </form>
-        </div>
-        <div class="col-sm-4">
-            <h3>Renginys 2</h3>
-            <p>Lorem ipsum dolor..</p>
-            <form>
-                <label for="rating2">Įvertinimas:</label>
-                <div class="form-group">
-                    <select class="form-control" id="rating2">
-                        <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-                        <option value="4">⭐️⭐️⭐️⭐️</option>
-                        <option value="3">⭐️⭐️⭐️</option>
-                        <option value="2">⭐️⭐️</option>
-                        <option value="1">⭐️</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-secondary" id="feedbackButton2">Atsiliepimas</button>
-                <button type="submit" class="btn btn-primary">Siųsti įvertinimą</button>
-            </form>
-        </div>
-        <div class="col-sm-4">
-            <h3>Renginys 3</h3>
-            <p>Lorem ipsum dolor..</p>
-            <form>
-                <label for="rating3">Įvertinimas:</label>
-                <div class="form-group">
-                    <select class="form-control" id="rating3">
-                        <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-                        <option value="4">⭐️⭐️⭐️⭐️</option>
-                        <option value="3">⭐️⭐️⭐️</option>
-                        <option value="2">⭐️⭐️</option>
-                        <option value="1">⭐️</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-secondary" id="feedbackButton3">Atsiliepimas</button>
-                <button type="submit" class="btn btn-primary">Siųsti įvertinimą</button>
-            </form>
-        </div>
-    </div>
+    <div id="eventsContainer" class="row"></div>
+
 </div>
 
 <!-- Atsiliepimo modalo HTML struktūra -->
@@ -130,7 +76,7 @@
                         <label for="feedbackComment">Komentaras:</label>
                         <textarea class="form-control" id="feedbackComment" rows="3" placeholder="Rašykite čia..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Siųsti atsiliepimą</button>
+                    <button type="submit" class="btn btn-primary" onclick="submitRating()">Siųsti atsiliepimą</button>
                 </form>
             </div>
         </div>
@@ -140,64 +86,6 @@
 <footer class="bg-dark text-white text-center mt-5 p-4">
     <p>&copy; Renginių organizavimo informacinė sistema 2024</p>
 </footer>
-
-<!-- Prisijungimo modalo HTML struktūra -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Prisijungti</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="email">El. paštas</label>
-                        <input type="email" class="form-control" id="email" placeholder="Įveskite el. paštą">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Slaptažodis</label>
-                        <input type="password" class="form-control" id="password" placeholder="Įveskite slaptažodį">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Prisijungti</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Registracijos modalo HTML struktūra -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="registerModalLabel">Registruotis</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="registerEmail">El. paštas</label>
-                        <input type="email" class="form-control" id="registerEmail" placeholder="Įveskite el. paštą">
-                    </div>
-                    <div class="form-group">
-                        <label for="registerPassword">Slaptažodis</label>
-                        <input type="password" class="form-control" id="registerPassword" placeholder="Įveskite slaptažodį">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmPassword">Patvirtinti slaptažodį</label>
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Pakartokite slaptažodį">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registruotis</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Atsijungimo patvirtinimo modalo HTML struktūra -->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
@@ -223,12 +111,6 @@
 <!-- jQuery kodas modalų valdymui -->
 <script>
     $(document).ready(function(){
-        $('#loginButton').click(function(){
-            $('#loginModal').modal('show');
-        });
-        $('#registerButton').click(function(){
-            $('#registerModal').modal('show');
-        });
         $('#logoutButton').click(function(){
             $('#logoutModal').modal('show');
         });
@@ -236,20 +118,127 @@
             alert("Sėkmingai atsijungėte.");
             $('#logoutModal').modal('hide'); // Uždaryti modalą po patvirtinimo
         });
-        
-        // Feedback button click event
-        $('#feedbackButton1').click(function() {
-            $('#feedbackModal').modal('show');
-        });
-
-        $('#feedbackButton2').click(function() {
-            $('#feedbackModal').modal('show');
-        });
-
-        $('#feedbackButton3').click(function() {
-            $('#feedbackModal').modal('show');
-        });
     });
 </script>
+
+<script>
+    // Kai puslapis užsikraun
+    window.onload = function() {
+        // Naudojame fetch, kad gautume renginius iš serverio
+        fetch('/eventsDone')
+            .then(response => response.json())  // Atsakymą konvertuojame į JSON
+            .then(events => {
+                // Sugalvokime, kur rodyti renginius (pvz. į div su klase 'container')
+                const container = document.querySelector('#eventsContainer');
+                container.innerHTML = ''; // Išvalome esamą turinį (jei yra)
+
+                events.forEach(event => {
+                    // Kuriame HTML elementą kiekvienam renginiui
+                    const eventHTML = `
+                        <div class="col-sm-4">
+                            <h3>${event.name}</h3>
+                            <p>${event.desc_short}</p>
+                            <p><strong>Data ir laikas:</strong> ${event.start_time} - ${event.end_time}</p>
+                            <p><strong>Įvertinimas:</strong> ${event.latest_rating ? `⭐️`.repeat(event.latest_rating) : 'Nėra įvertinimo'}</p>
+                            <form>
+                                <label for="rating${event.id_Event}">Įvertinimas:</label>
+                                <div class="form-group">
+                                    <select class="form-control" id="rating${event.id_Event}">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="btn btn-success" onclick="submitRating(${event.id_Event})">Pateikti atsiliepimą</button>
+                            </form>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#feedbackModal" onclick="showFeedbackModal(${event.id_Event})">Palikite atsiliepimą</button>
+                        </div>
+                    `;
+                    container.innerHTML += eventHTML;
+                });
+            });
+
+        // Add this inside your `window.onload` function or script block
+        $('#feedbackForm').submit(function (event) {
+            event.preventDefault(); // Prevent form submission
+            const eventId = $('#feedbackModal').data('eventId'); // Get the event ID from the modal data
+            const feedback = $('#feedbackComment').val();  // Get the comment
+
+            // Send feedback to the server (you can adjust the API endpoint as needed)
+            fetch(`/submitFeedback/${eventId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ feedback: feedback })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Atsiliepimas sėkmingai išsiųstas!');
+                    $('#feedbackModal').modal('hide');  // Close the modal
+                    location.reload();
+                });
+        });
+
+    };
+
+    // Funkcija, skirta įvertinimo išsaugojimui
+
+    // Function to handle rating submission with feedback
+    // Assuming you have a way to get the logged-in user ID (for example, from session storage)
+    const userId = sessionStorage.getItem("id"); // Or from a global JS variable or session management system
+
+    // Function to handle rating submission with feedback
+    function submitRating(eventId) {
+        const rating = document.querySelector(`#rating${eventId}`).value;
+        const comment = document.querySelector(`#feedbackComment`).value; // Get comment from modal or feedback input
+
+        // Check if the user is logged in and userId is available
+        if (!userId) {
+            alert('Please log in to submit a rating.');
+            return;
+        }
+
+        // Send the rating and feedback to the server
+        fetch('/submitFeedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                eventId: eventId,
+                rating: rating,
+                comment: comment,
+                id: userId // Include user ID in the request
+            })
+        })
+            .then(response => response.json())  // Wait for server response
+            .then(data => {
+                alert('Atsiliepimas sėkmingai išsiųstas!'); // Success message
+                $('#feedbackModal').modal('hide');  // Close feedback modal
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error); // Log any error
+                alert('Įvyko klaida. Bandykite vėl.'); // Error message
+            });
+
+        // Prevent form from submitting in the traditional way
+        event.preventDefault();
+    }
+
+
+
+
+    function showFeedbackModal(eventId) {
+        const feedbackModal = $('#feedbackModal');
+        feedbackModal.modal('show');
+        feedbackModal.data('eventId', eventId);  // Store the event ID in the modal
+    }
+
+</script>
+
 </body>
 </html>

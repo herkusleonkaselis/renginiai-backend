@@ -37,7 +37,7 @@ export const loginUser = (req, res) => {
 
             if (isMatch) {
                 // Sėkmingas prisijungimas
-                res.json({ success: true, message: 'Prisijungimas sėkmingas!', id: user.id_User, username: user.username, role: user.fk_account_type});
+                res.json({ success: true, message: 'Prisijungimas sėkmingas!', id: user.id_User, username: user.username, role: user.fk_account_type, userId: user.id_User});
             } else {
                 res.status(400).json({ success: false, message: 'Neteisingas slaptažodis' });
             }

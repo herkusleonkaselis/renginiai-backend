@@ -12,6 +12,7 @@ import { loginUser } from './login/login.js';
 import logoutRouter from './logout/logout.js';
 import profileRouter from './profile/profileController.js';
 import eventsRouter from './ongoingEvents/ongoingEventController.js';
+import finishedEventsRouter from './finishedEvents/finishedEventController.js';
 
 // Sukuriame Express serverį
 const app = express();
@@ -32,6 +33,7 @@ app.use(logoutRouter);
 app.use(bodyParser.json());
 app.use(profileRouter);
 app.use(eventsRouter);
+app.use(finishedEventsRouter);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'web'));
