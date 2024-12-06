@@ -13,6 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Kairės pusės navigacija -->
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">Pagrindinis puslapis<span class="sr-only">(current)</span></a>
@@ -25,21 +26,22 @@
             </li>
         </ul>
 
+        <!-- Dešinės pusės navigacija su ml-auto -->
         <ul class="navbar-nav ml-auto mr-5">
             <li class="nav-item">
                 <a class="nav-link" href="krepselis.html">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" id="accountDropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Paskyra
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#" id="loginButton" data-toggle="modal" data-target="#loginModal">Prisijungti</a>
-                    <a class="dropdown-item" href="#" id="registerButton" data-toggle="modal" data-target="#registerModal">Registruotis</a>
-                    <a class="dropdown-item" href="mano_renginiai.html">Mano renginiai</a>
-                    <a class="dropdown-item" href="buve_renginiai.html">Praėję renginiai</a>
+                    <a class="dropdown-item" href="profilis.html" id="profileLink">Profilis</a>
+                    <a class="dropdown-item" href="mano_renginiai.html" id="myEventsLink">Mano renginiai</a>
+                    <a class="dropdown-item" href="buve_renginiai.html" id="pastEventsLink">Praėję renginiai</a>
+                    <a class="dropdown-item" href="organizatoriaus_forma.html" id="becomeOrganizerLink">Pateikti prašymą tapti organizatoriumi</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" id="logoutButton">Atsijungti</a>
                 </div>
@@ -266,6 +268,53 @@
     
 <script>
     $(document).ready(function() {
+
+        const userId = sessionStorage.getItem("id");
+        console.log(userId);
+
+        function getProfile() {
+            $.get(`/api/profile/${userId}`, function (data) {
+                $('#username').text(data.username);
+                $('#firstName').text(data.contact_name.split(' ')[0]);
+                $('#lastName').text(data.contact_name.split(' ')[1]);
+                $('#phone').text(data.phone_number || 'N/A');
+                $('#email').text(data.email);
+                $('#description').text(data.bio);
+                $('#birthdate').text(data.dob);
+            });
+        }
+
+        getProfile();
+
+        $('#editProfileForm').on('submit', function (event) {
+            event.preventDefault();
+
+            const updatedData = {
+                username: $('#editUsername').val(),
+                email: $('#editEmail').val(),
+                contact_name: $('#editFirstName').val() + ' ' + $('#editLastName').val(),
+                dob: $('#editBirthdate').val(),
+                bio: $('#editDescription').val(),
+                address: $('#editAddress').val(),
+                latitude: $('#editLatitude').val(),
+                longitude: $('#editLongitude').val(),
+            };
+
+            $.ajax({
+                url: `/api/profile/${userId}`,
+                method: 'PUT',
+                data: updatedData,
+                success: function () {
+                    alert('Profile updated successfully');
+                    getProfile(); // Reload updated profile
+                    $('#editProfileModal').modal('hide');
+                },
+                error: function (error) {
+                    alert('Error updating profile');
+                },
+            });
+        });
+
         $('#confirmDeleteButton').on('click', function() {
             // Čia galite pridėti logiką, kad ištrintumėte paskyrą iš savo backend
             $('#deleteAccountModal').modal('hide');
@@ -291,6 +340,86 @@
             alert('Sėkmingai prisijungėte!');
             $('#loginModal').modal('hide');
         });
+    });
+</script>
+
+<script>
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Užkirsti kelią formos įprastam pateikimui
+
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    sessionStorage.setItem('userName', data.username);
+                    sessionStorage.setItem('role', data.role);
+                    sessionStorage.setItem('userId', data.id);
+                    alert('Sėkmingai prisijungėte!');
+                    // Galite atlikti papildomas operacijas, pvz., peradresuoti vartotoją
+                    $('#loginModal').modal('hide');
+                    window.location.reload();
+
+                } else {
+                    alert('Prisijungimo klaida: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Klaida prisijungiant:', error);
+                alert('Įvyko klaida, pabandykite vėliau.');
+            });
+    });
+</script>
+
+<script>
+    // Atsijungimo patvirtinimo modalas
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = $('#logoutModal');
+    const confirmLogoutButton = document.getElementById('confirmLogout');
+
+    // Atidaryti atsijungimo patvirtinimo modalą
+    logoutButton.addEventListener('click', function() {
+        logoutModal.modal('show');
+    });
+
+    // Patvirtinti atsijungimą
+    confirmLogoutButton.addEventListener('click', function() {
+        fetch('/logout', { method: 'POST' }) // Siunčiame užklausą serveriui
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    sessionStorage.removeItem('userName');
+                    sessionStorage.removeItem('role');
+                    alert('Sėkmingai atsijungėte!');
+                    window.location.href = '/'; // Peradresuojame į pagrindinį puslapį
+                } else {
+                    alert('Klaida atsijungiant');
+                }
+            })
+            .catch(error => {
+                console.error('Klaida atsijungiant:', error);
+                alert('Įvyko klaida');
+            });
+        logoutModal.modal('hide'); // Uždaryti modalą
+    });
+
+    document.getElementById('logoutButton').addEventListener('click', function() {
+        sessionStorage.removeItem('userName');
+        sessionStorage.removeItem('role');
+        alert('Sėkmingai atsijungėte!');
+        window.location.href = '/'; // Perkrauti puslapį, kad atnaujintų rodymą
     });
 </script>
 
