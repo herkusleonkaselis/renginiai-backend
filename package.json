@@ -20,7 +20,8 @@
     "bcrypt": "^5.1.1",
     "express": "^4.21.2",
     "helmet": "^8.0.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.5"
   },
   "type": "module"
 }

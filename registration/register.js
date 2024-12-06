@@ -1,5 +1,7 @@
 import mysql from 'mysql2';
 import bcrypt from 'bcrypt';
+import createCart from '../cart/createCart.js'; 
+
 
 // Sukuriame MySQL ryšį
 const connection = mysql.createConnection({
@@ -10,7 +12,7 @@ const connection = mysql.createConnection({
 });
 
 // Registracijos užklausa (POST)
-export function registerUser(req, res) {
+export async function registerUser(req, res) {
     const { username, email, password, contact_name } = req.body;
 
     // Patikriname, ar vartotojas su tokiu el. paštu jau egzistuoja
@@ -41,11 +43,26 @@ export function registerUser(req, res) {
                 INSERT INTO user (username, password_hash, email, contact_name, create_date, status, fk_Account_Type)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             `;
-            connection.query(query, [username, hashedPassword, email, contact_name, createDate, status, accountType], (err, results) => {
+            connection.query(query, [username, hashedPassword, email, contact_name, createDate, status, accountType], async (err, results) => {
                 if (err) {
                     console.error('Klaida įrašant vartotoją:', err);
                     return res.status(500).json({ success: false, message: 'Klaida' });
                 }
+
+                // Paimame naujai sukurtą vartotojo ID
+                const userId = results.insertId;
+
+                // Sukuriame krepšelį šiam vartotojui
+                try {
+                    await createCart(userId); // Ši eilutė sukuria krepšelį
+                } catch (error) {
+                    console.error('Klaida kuriant krepšelį:', error.message);
+                    return res.status(500).json({ success: false, message: 'Klaida kuriant krepšelį' });
+                }
+
+                req.session.user = {
+                    username: username,  // Įrašykite vardą į sesiją
+                };
 
                 res.json({ success: true, message: 'Sėkmingai užsiregistravote!' });
             });
