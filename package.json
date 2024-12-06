@@ -2,6 +2,7 @@
   "name": "renginiai-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,10 +19,7 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "express": "^4.21.2",
-    "express-session": "^1.18.1",
-    "helmet": "^8.0.0",
-    "mysql": "^2.18.1"
-  },
-  "type": "module"
+    "ejs": "^3.1.10",
+    "express-session": "^1.18.1"
+  }
 }

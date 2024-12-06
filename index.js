@@ -19,7 +19,8 @@ const port = 3000;  // Serverio prievadas
 app.use(session({
     secret: 'secret-key', // Sesijos slaptažodis
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { secure: false }
 }));
 
 // Konfigūruojame statinių failų (HTML, CSS, JS) aptarnavimą iš /web katalogo
@@ -29,10 +30,13 @@ app.use(express.static(path.join(__dirname, 'web')));
 app.use(logoutRouter);
 app.use(bodyParser.json());
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'web'));
+
 // Pagrindinis maršrutas (GET užklausa į /)
 app.get('/', (req, res) => {
     // Pateikiame index.html, kuris yra /web kataloge
-    res.sendFile(path.join(__dirname, 'web', 'index.html'));
+    res.render('index');
 });
 
 app.post('/register', registerUser);
