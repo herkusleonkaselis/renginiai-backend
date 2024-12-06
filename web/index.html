@@ -114,14 +114,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="loginForm">
               <div class="form-group">
                 <label for="email">El. paštas</label>
-                <input type="email" class="form-control" id="email" placeholder="Įveskite el. paštą">
+                <input type="email" class="form-control" id="email" placeholder="Įveskite el. paštą" required>
               </div>
               <div class="form-group">
                 <label for="password">Slaptažodis</label>
-                <input type="password" class="form-control" id="password" placeholder="Įveskite slaptažodį">
+                <input type="password" class="form-control" id="password" placeholder="Įveskite slaptažodį" required>
               </div>
               <button type="submit" class="btn btn-primary">Prisijungti</button>
             </form>
@@ -252,6 +252,41 @@
                 })
                 .catch(err => {
                   console.error('Klaida:', err);
+                });
+      });
+    </script>
+
+    <!-- JavaScript, kad atliktų prisijungimo užklausą -->
+    <script>
+      const loginForm = document.getElementById('loginForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Užkirsti kelią formos įprastam pateikimui
+
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    alert('Sėkmingai prisijungėte!');
+                    // Galite atlikti papildomas operacijas, pvz., peradresuoti vartotoją
+                  } else {
+                    alert('Prisijungimo klaida: ' + data.message);
+                  }
+                })
+                .catch(error => {
+                  console.error('Klaida prisijungiant:', error);
+                  alert('Įvyko klaida, pabandykite vėliau.');
                 });
       });
     </script>

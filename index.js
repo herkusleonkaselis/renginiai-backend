@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { registerUser } from './registration/register.js';
+import { loginUser } from './login/login.js';
 
 // Sukuriame Express serverį
 const app = express();
@@ -26,6 +27,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/register', registerUser);
+app.post('/login', loginUser);
+
 
 // Sukuriame MySQL ryšį (čia reikia įrašyti savo duomenų bazės duomenis)
 const connection = mysql.createConnection({
